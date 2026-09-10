@@ -3,7 +3,10 @@ const mongoose = require("mongoose");
 const connectDB = async () => {
   try {
     const uri = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/buildcore";
-    await mongoose.connect(uri);
+    await mongoose.connect(uri, {
+      serverSelectionTimeoutMS: 5000,
+      family: 4,
+    });
     console.log(`MongoDB connected: ${mongoose.connection.host}`);
   } catch (err) {
     console.error("MongoDB connection error:", err.message);
